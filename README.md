@@ -1,4 +1,4 @@
-# Pastelería (Flask + POO, almacenamiento en memoria)
+# Pastelería 
 
 ## Requisitos
 - Python 3.10+
