@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Pastelería</h1>
+<p>Examen de programación de redes, Morales Soto abigail, Vargas Bautista Jesus Eduardo y Serrano Garcia Alejandro.</p>
+
+<div class="cards">
+  <div class="card"><h3>Productos</h3><p class="kpi">{{ totals.products }}</p></div>
+  <div class="card"><h3>Clientes</h3><p class="kpi">{{ totals.customers }}</p></div>
+  <div class="card"><h3>Disponibles</h3><p class="kpi">{{ totals.available }}</p></div>
+  <div class="card"><h3>Pedidos</h3><p class="kpi">{{ totals.orders }}</p></div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Clientes</h1>
+
+<table class="table">
+  <thead><tr><th>ID</th><th>Nombre</th><th>Acciones</th></tr></thead>
+  <tbody>
+    {% for c in customers %}
+    <tr>
+      <td>{{ c.cliente_id }}</td>
+      <td>{{ c.nombre }}</td>
+      <td>
+        <form method="post" action="{{ url_for('delete_cliente', cliente_id=c.cliente_id) }}" style="display:inline" onsubmit="return confirm('Eliminar cliente?');">
+          <button class="btn" type="submit">Eliminar</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h2>Agregar cliente</h2>
+<form method="post" class="form" style="max-width:420px">
+  <label>Nombre <input name="nombre" required></label>
+  <button class="btn" type="submit">Guardar</button>
+</form>
+{% endblock %}

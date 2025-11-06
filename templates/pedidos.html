@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Pedidos</h1>
+
+<table class="table">
+  <thead><tr><th>Pedido</th><th>Producto</th><th>Cliente</th><th>Cantidad</th><th>Acciones</th></tr></thead>
+  <tbody>
+    {% if not orders %}
+      <tr><td colspan="5">No hay pedidos.</td></tr>
+    {% else %}
+      {% for it in orders %}
+      <tr>
+        <td>[{{ it.order.pedido_id }}]</td>
+        <td>{{ it.product.nombre if it.product else '-' }}</td>
+        <td>{{ it.customer.nombre if it.customer else '-' }}</td>
+        <td>{{ it.order.cantidad }}</td>
+        <td>
+          <form method="post" action="{{ url_for('cancel_pedido', pedido_id=it.order.pedido_id) }}" style="display:inline" onsubmit="return confirm('Cancelar pedido?');">
+            <button class="btn" type="submit">Cancelar</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    {% endif %}
+  </tbody>
+</table>
+
+<h2>Registrar pedido</h2>
+<form method="post" class="form" style="max-width:520px">
+  <label>Producto
+    <select name="producto_id" required>
+      {% for p in products if p.stock > 0 %}
+      <option value="{{ p.producto_id }}">[{{ p.producto_id }}] {{ p.nombre }} (stock: {{ p.stock }})</option>
+      {% endfor %}
+    </select>
+  </label>
+  <label>Cliente
+    <select name="cliente_id" required>
+      {% for c in customers %}
+      <option value="{{ c.cliente_id }}">[{{ c.cliente_id }}] {{ c.nombre }}</option>
+      {% endfor %}
+    </select>
+  </label>
+  <label>Cantidad <input name="cantidad" type="number" min="1" value="1" required></label>
+  <button class="btn" type="submit">Registrar</button>
+</form>
+
+{% endblock %}
